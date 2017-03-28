@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26206.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INPDS_App", "INPDS_App.csproj", "{5DCD6999-32BC-49DD-8CB4-6EFB62B5AB3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INPDS_Core", "..\INPDS_Core\INPDS_Core.csproj", "{0737A4B6-748B-4D6B-8305-12810D49CA69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INPDS_CoreTest", "INPDS_CoreTest\INPDS_CoreTest.csproj", "{48C376E7-668D-46EF-9AAA-DA4E8FC6629D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{5DCD6999-32BC-49DD-8CB4-6EFB62B5AB3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DCD6999-32BC-49DD-8CB4-6EFB62B5AB3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DCD6999-32BC-49DD-8CB4-6EFB62B5AB3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0737A4B6-748B-4D6B-8305-12810D49CA69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0737A4B6-748B-4D6B-8305-12810D49CA69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0737A4B6-748B-4D6B-8305-12810D49CA69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0737A4B6-748B-4D6B-8305-12810D49CA69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48C376E7-668D-46EF-9AAA-DA4E8FC6629D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48C376E7-668D-46EF-9AAA-DA4E8FC6629D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48C376E7-668D-46EF-9AAA-DA4E8FC6629D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48C376E7-668D-46EF-9AAA-DA4E8FC6629D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
