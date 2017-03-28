@@ -1,4 +1,7 @@
-using System;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using INPDS_Core.DataAccess;
 using INPDS_Core.Model;
 
 namespace INPDS_Core.Controller
@@ -14,12 +17,25 @@ namespace INPDS_Core.Controller
 
         public void Login(string username, string password)
         {
-            throw new NotImplementedException();
+            using (var context = new ReturnFreightContext())
+            {
+                using (SHA512 sha = new SHA512Managed())
+                {
+                    var encoding = Encoding.UTF8;
+                    var hash = encoding.GetString(sha.ComputeHash(encoding.GetBytes(password)));
+                    var foundUser =
+                        context.Users.FirstOrDefault(user => user.UserName == username && user.Password == hash);
+                    if (foundUser != null)
+                    {
+                        LoggedUser = foundUser;
+                    }
+                }
+            }
         }
 
         public void Logout()
         {
-            throw new NotImplementedException();
+            LoggedUser = null;
         }
     }
 }
