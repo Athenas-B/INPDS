@@ -62,16 +62,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controller\IUserController.cs" />
-    <Compile Include="Controller\UserController.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Order.cs" />
-    <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -99,6 +95,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\INPDS_Core\INPDS_Core.csproj">
+      <Project>{0737a4b6-748b-4d6b-8305-12810d49ca69}</Project>
+      <Name>INPDS_Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
