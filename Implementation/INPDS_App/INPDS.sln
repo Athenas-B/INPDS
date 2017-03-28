@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INPDS_Core", "..\INPDS_Core
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INPDS_CoreTest", "INPDS_CoreTest\INPDS_CoreTest.csproj", "{48C376E7-668D-46EF-9AAA-DA4E8FC6629D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INPDS_InitialData", "INPDS_InitialData\INPDS_InitialData.csproj", "{88250A20-0C5E-40DA-AD54-0F45F5B154F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{48C376E7-668D-46EF-9AAA-DA4E8FC6629D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48C376E7-668D-46EF-9AAA-DA4E8FC6629D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48C376E7-668D-46EF-9AAA-DA4E8FC6629D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88250A20-0C5E-40DA-AD54-0F45F5B154F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88250A20-0C5E-40DA-AD54-0F45F5B154F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88250A20-0C5E-40DA-AD54-0F45F5B154F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88250A20-0C5E-40DA-AD54-0F45F5B154F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

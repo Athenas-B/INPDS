@@ -1,16 +1,26 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace INPDS_Core.Model
 {
     public class User
     {
-        public User(int idUser, string userName, string password, UserRole userRole)
+        public User()
         {
-            IdUser = idUser;
+            //Empty constructor
+        }
+
+        public User(string userName, string password, UserRole userRole)
+        {
             UserName = userName;
             Password = password;
             UserRole = userRole;
         }
 
-        public int IdUser { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
         public string UserName { get; set; }
         public string Password { get; set; }
         public UserRole UserRole { get; set; }
