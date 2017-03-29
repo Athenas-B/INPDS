@@ -13,6 +13,7 @@ namespace INPDS_Core.Controller
                 using (var context = new ReturnFreightContext())
                 {
                     context.Orders.Add(order);
+                    context.SaveChanges();
                 }
             }
         }
