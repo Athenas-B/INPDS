@@ -2,6 +2,10 @@
 
 Tento repozitář slouží k ukládání výsledků semestrální práce INPDS.
 
+
+## Harmonogram Odevzdávání ##
+![harm.PNG](https://bitbucket.org/repo/KyjM9k/images/3945683520-harm.PNG)
+
 ## Pravidla vývoje ##
 * Kód píšeme vždy anglicky
 * Dodržujeme konvence jazyka
