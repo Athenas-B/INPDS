@@ -1,0 +1,25 @@
+﻿<Window x:Class="INPDS_App.View.OrderView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:INPDS_App.View"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="ReturnFreight Order" Height="280.5" Width="421" Closed="Window_Closed">
+    <Grid>
+        <TextBox x:Name="tbFrom" HorizontalAlignment="Left" Height="22" Margin="176,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbTo" HorizontalAlignment="Left" Height="23" Margin="176,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <xctk:DateTimePicker x:Name="dtpItemsDeadline" Margin="176,153,13,65"/>
+        <xctk:DateTimePicker x:Name="dtpItemsReady" Margin="176,113,13,105"/>
+        <Label Content="Trasa přepravy" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" FontWeight="Bold" FontSize="16" Width="413" HorizontalContentAlignment="Center"/>
+        <Label Content="Odkud:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="126,48,0,0" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" RenderTransformOrigin="0.51,0.615"/>
+        <Label Content="Kam:" HorizontalAlignment="Left" Margin="138,75,0,0" VerticalAlignment="Top" Width="37" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+        <Label Content="Datum připraveného zboží:" HorizontalAlignment="Left" Margin="23,115,0,0" VerticalAlignment="Top"/>
+        <Label Content="Datum nejpozdějšího dodání:" HorizontalAlignment="Left" Margin="11,155,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnConfirm" Content="Potvrdit" HorizontalAlignment="Left" Margin="129,197,0,0" VerticalAlignment="Top" Width="75" Click="btnConfirm_Click"/>
+        <Button x:Name="btnCancel" Content="Zrušit" HorizontalAlignment="Left" Margin="209,197,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
+        <Label x:Name="lbError" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,216,0,0" Width="393" FontWeight="Bold" Foreground="Red" HorizontalContentAlignment="Center"/>
+    </Grid>
+</Window>
