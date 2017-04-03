@@ -1,14 +1,16 @@
 using System;
 using INPDS_Core.DataAccess;
+using INPDS_Core.DTO;
 using INPDS_Core.Model;
 
 namespace INPDS_Core.Controller
 {
     public class OrderController : IOrderController
     {
-        public void RegisterOrder(Order order)
+        public ValidationResult RegisterOrder(Order order)
         {
-            if (IsValid(order))
+            var validationResult = Validate(order);
+            if (validationResult.IsValid)
             {
                 using (var context = new ReturnFreightContext())
                 {
@@ -16,23 +18,33 @@ namespace INPDS_Core.Controller
                     context.SaveChanges();
                 }
             }
+            return validationResult;
         }
 
-        private static bool IsValid(Order order)
+        private static ValidationResult Validate(Order order)
         {
+            ValidationResult result = ValidationResult.Ok();
             if (order.Customer == null)
             {
-                return false;
+                result = result.JoinResults(ValidationResult.Error("Uživatel není definován."));
             }
-            if (DateTime.Now > order.DeliveryDeadline || DateTime.Now > order.PickupDate || order.PickupDate > order.DeliveryDeadline)
+            if (DateTime.Now > order.DeliveryDeadline)
             {
-                return false;
+                result = result.JoinResults(ValidationResult.Error("Termín nejpozdìjšího dodání musí být v budoucnosti."));
+            }
+            if (DateTime.Now > order.PickupDate)
+            {
+                result = result.JoinResults(ValidationResult.Error("Termín vyzvednutí zboží musí být v budoucnosti."));
+            }
+            if (order.PickupDate > order.DeliveryDeadline)
+            {
+                result = result.JoinResults(ValidationResult.Error("Termín nejpozdìjšího dodání musí být vìtší než termín vyzvednutí."));
             }
             if (string.IsNullOrWhiteSpace(order.From) || string.IsNullOrWhiteSpace(order.To))
             {
-                return false;
+                result = result.JoinResults(ValidationResult.Error("Beginning or destination of the order is invalid."));
             }
-            return true;
+            return result;
         }
     }
 }
