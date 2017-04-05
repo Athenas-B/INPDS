@@ -7,10 +7,10 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="ReturnFreight Order" Height="280.5" Width="421" Closed="Window_Closed">
+        Title="ReturnFreight Order" Height="280.5" Width="421" Closed="Window_Closed" ResizeMode="NoResize">
     <Grid>
-        <TextBox x:Name="tbFrom" HorizontalAlignment="Left" Height="22" Margin="176,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbTo" HorizontalAlignment="Left" Height="23" Margin="176,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbFrom" HorizontalAlignment="Left" Height="22" Margin="176,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="tbTo" HorizontalAlignment="Left" Height="23" Margin="176,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" VerticalContentAlignment="Center"/>
         <xctk:DateTimePicker x:Name="dtpItemsDeadline" Margin="176,153,13,65"/>
         <xctk:DateTimePicker x:Name="dtpItemsReady" Margin="176,113,13,105"/>
         <Label Content="Trasa přepravy" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" FontWeight="Bold" FontSize="16" Width="413" HorizontalContentAlignment="Center"/>
