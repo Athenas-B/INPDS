@@ -21,12 +21,16 @@ namespace INPDS_App.View
             try
             {
                 userController.Login(tbLogin.Text, tbPassword.Password);
-                
+
                 if (userController.IsLoggedIn)
                 {
                     var orderView = new OrderView(userController);
                     orderView.Show();
                     Close();
+                }
+                else
+                {
+                    lbError.Content = "Chybné uživatelské jméno nebo heslo.";
                 }
             }
             catch (Exception)

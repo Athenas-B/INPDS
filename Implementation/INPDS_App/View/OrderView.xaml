@@ -7,7 +7,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="ReturnFreight Order" Height="280.5" Width="421" Closed="Window_Closed" ResizeMode="NoResize">
+        Title="ReturnFreight Order" Height="280.5" Width="421" Closed="Window_Closed" ResizeMode="NoResize" Icon="/INPDS_App;component/Resources/ico-truck.ico">
     <Grid>
         <TextBox x:Name="tbFrom" HorizontalAlignment="Left" Height="22" Margin="176,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" VerticalContentAlignment="Center"/>
         <TextBox x:Name="tbTo" HorizontalAlignment="Left" Height="23" Margin="176,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" VerticalContentAlignment="Center"/>

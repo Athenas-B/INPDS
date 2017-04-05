@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:INPDS_App.View"
         mc:Ignorable="d"
-        Title="ReturnFreight Login" Height="152" Width="300" ResizeMode="NoResize">
+        Title="ReturnFreight Login" Height="171.966" Width="300" ResizeMode="NoResize" Icon="/INPDS_App;component/Resources/ico-truck.ico">
     <Grid>
         <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Left" Margin="168,83,0,0" VerticalAlignment="Top" Width="75" Click="btnLogin_Click"/>
         <TextBox x:Name="tbLogin" HorizontalAlignment="Left" Height="23" Margin="146,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" VerticalContentAlignment="Center"/>
@@ -14,7 +14,16 @@
         <Label Content="Password:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="79,49,0,0" Height="23"/>
 
         <Image HorizontalAlignment="Left" Height="57" Margin="10,21,0,0" VerticalAlignment="Top" Width="57" Source="../Resources/img-login.png" Stretch="Fill" RenderTransformOrigin="0.619,0.599"/>
-        <Label x:Name="lbError" Content="" HorizontalAlignment="Center" Margin="10,83,144,10" VerticalAlignment="Center" Height="28" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Red" FontWeight="Bold" Width="138" FontSize="11"/>
+        <Label x:Name="lbError" Content="" Margin="9,108,6,6" VerticalAlignment="Center" Height="29" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Red" FontWeight="Bold" FontSize="11" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="-0.131"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="-0.159"/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
 
     </Grid>
 </Window>
