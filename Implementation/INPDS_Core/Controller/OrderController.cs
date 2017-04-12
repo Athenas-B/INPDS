@@ -48,3 +48,50 @@ namespace INPDS_Core.Controller
         }
     }
 }
+
+public class PriceService
+{
+    double CalculatePrice(double km, string id)
+    {
+        IPriceCalculator calculator = new BasePriceCalculator();
+        if (id == "ReturnFreight")
+        {
+            calculator = new DiscountCalculator(calculator);
+        }
+        return calculator.GetPrice(km);
+    }
+}
+
+public interface IPriceCalculator
+{
+    double GetPrice(double km);
+}
+
+public class BasePriceCalculator : IPriceCalculator
+{
+    public double GetPrice(double km)
+    {
+        return 2000 + 10*km;
+    }
+}
+
+public abstract class PriceCalculatorDecorator : IPriceCalculator
+{
+    protected IPriceCalculator _calculator;
+
+    protected PriceCalculatorDecorator(IPriceCalculator calculator)
+    {
+        _calculator = calculator;
+    }
+
+    public abstract double GetPrice(double km);
+}
+
+public class DiscountCalculator : PriceCalculatorDecorator
+{
+    public DiscountCalculator(IPriceCalculator calc) : base(calc){}
+    public override double GetPrice(double km)
+    {
+        return _calculator.GetPrice(km)*0.8;
+    }
+}
