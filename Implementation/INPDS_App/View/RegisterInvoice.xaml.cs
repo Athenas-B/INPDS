@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Windows;
 using INPDS_Core.Controller;
 using INPDS_Core.DataAccess;
@@ -67,7 +68,10 @@ namespace INPDS_App.View
         {
             using (var context = new ReturnFreightContext())
             {
-                dgOrders.ItemsSource = context.Orders;
+
+                context.Users.Load();
+                context.Orders.Load();
+                dgOrders.ItemsSource = context.Orders.Local;
             }
         }
     }
