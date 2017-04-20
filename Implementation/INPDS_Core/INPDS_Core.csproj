@@ -46,12 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\IInvoiceController.cs" />
+    <Compile Include="Controller\InvoiceController.cs" />
     <Compile Include="Controller\IOrderController.cs" />
     <Compile Include="Controller\IUserController.cs" />
     <Compile Include="Controller\OrderController.cs" />
     <Compile Include="Controller\UserController.cs" />
     <Compile Include="DataAccess\ReturnFreightContext.cs" />
     <Compile Include="DTO\ValidationResult.cs" />
+    <Compile Include="Model\Invoice.cs" />
     <Compile Include="Model\Order.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

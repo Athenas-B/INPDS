@@ -24,8 +24,8 @@ namespace INPDS_App.View
 
                 if (userController.IsLoggedIn)
                 {
-                    var orderView = new OrderView(userController);
-                    orderView.Show();
+                    var mainView = new MainWindowReturnFreight(userController);
+                    mainView.Show();
                     Close();
                 }
                 else
