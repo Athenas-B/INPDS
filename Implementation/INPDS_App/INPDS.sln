@@ -1,15 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INPDS_App", "INPDS_App.csproj", "{5DCD6999-32BC-49DD-8CB4-6EFB62B5AB3A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{259AB3C2-F48A-499D-877E-E0647D20CF27} = {259AB3C2-F48A-499D-877E-E0647D20CF27}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INPDS_Core", "..\INPDS_Core\INPDS_Core.csproj", "{0737A4B6-748B-4D6B-8305-12810D49CA69}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INPDS_CoreTest", "INPDS_CoreTest\INPDS_CoreTest.csproj", "{48C376E7-668D-46EF-9AAA-DA4E8FC6629D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INPDS_InitialData", "INPDS_InitialData\INPDS_InitialData.csproj", "{88250A20-0C5E-40DA-AD54-0F45F5B154F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PriceService", "..\PriceService\PriceService.csproj", "{259AB3C2-F48A-499D-877E-E0647D20CF27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +38,10 @@ Global
 		{88250A20-0C5E-40DA-AD54-0F45F5B154F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88250A20-0C5E-40DA-AD54-0F45F5B154F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88250A20-0C5E-40DA-AD54-0F45F5B154F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{259AB3C2-F48A-499D-877E-E0647D20CF27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{259AB3C2-F48A-499D-877E-E0647D20CF27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{259AB3C2-F48A-499D-877E-E0647D20CF27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{259AB3C2-F48A-499D-877E-E0647D20CF27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

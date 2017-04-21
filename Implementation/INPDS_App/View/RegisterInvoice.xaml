@@ -8,11 +8,14 @@
         Title="RegisterInvoice" Height="385.714" Width="528.827" Initialized="Window_Initialized">
     <Grid>
         <Label Content="Vyberte zakázku:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <DataGrid x:Name="dgOrders" HorizontalAlignment="Left" ItemsSource="{Binding}" Height="261" Margin="10,36,0,0" VerticalAlignment="Top" Width="501" CanUserAddRows="False"/>
+        <DataGrid x:Name="dgOrders" HorizontalAlignment="Left" ItemsSource="{Binding}" Height="261" Margin="10,36,0,0" VerticalAlignment="Top" Width="501" CanUserAddRows="False" SelectionChanged="dgOrders_SelectionChanged"/>
         <Label Content="Vypočítaná cena:" HorizontalAlignment="Left" Margin="10,304,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.455,0.601"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="114,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txBoxPrice" HorizontalAlignment="Left" Height="23" Margin="114,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" VerticalContentAlignment="Center" IsReadOnly="True"/>
         <Button x:Name="btnConfirm" Content="Potvrdit" HorizontalAlignment="Left" Margin="436,314,0,0" VerticalAlignment="Top" Width="75" Click="btnConfirm_Click"/>
         <Button x:Name="btnCancel" Content="Zrušit" HorizontalAlignment="Left" Margin="345,315,0,0" VerticalAlignment="Top" Width="75" Height="20" Click="btnCancel_Click"/>
+        <Grid x:Name="gridCalculate" Background="#9B303030" Visibility="Collapsed">
+            <Label x:Name="label" Content="POČÍTÁM CENU..." HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" FontSize="18" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Foreground="#FFE2E2E2"/>
+        </Grid>
 
     </Grid>
 </Window>

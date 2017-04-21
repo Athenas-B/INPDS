@@ -27,7 +27,7 @@ namespace INPDS_Core.Controller
         private ValidationResult Validate(Invoice invoice)
         {
             ValidationResult result = ValidationResult.Ok();
-            if (invoice.Price > 0)
+            if (invoice.Price < 0)
             {
                 result = result.JoinResults(ValidationResult.Error("Částka nebyla zadána."));
             }

@@ -14,7 +14,7 @@ namespace INPDS_InitialData
                 //Remove all existing entries
                 context.Orders.RemoveRange(context.Orders);
                 context.Users.RemoveRange(context.Users);
-
+                context.Invoices.RemoveRange(context.Invoices);
                 InitializeUsers(context);
             }
         }
