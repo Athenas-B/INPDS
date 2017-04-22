@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.Data.Entity;
+using System.Security.Cryptography;
 using System.Text;
 using INPDS_Core.DataAccess;
 using INPDS_Core.Model;
@@ -9,12 +10,9 @@ namespace INPDS_InitialData
     {
         private static void Main(string[] args)
         {
+            Database.SetInitializer(new DropCreateDatabaseAlways<ReturnFreightContext>());
             using (var context = new ReturnFreightContext())
             {
-                //Remove all existing entries
-                context.Orders.RemoveRange(context.Orders);
-                context.Users.RemoveRange(context.Users);
-                context.Invoices.RemoveRange(context.Invoices);
                 InitializeUsers(context);
             }
         }
