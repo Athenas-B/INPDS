@@ -27,7 +27,7 @@ namespace INPDS_App.View
             InitializeComponent();
             _user = usrControl.LoggedUser;
             _userController = usrControl;
-            
+
             Title += " | Uživatel: " + _user.UserName;
         }
 
@@ -49,9 +49,9 @@ namespace INPDS_App.View
             lbError.Foreground = Brushes.Crimson;
             try
             {
-                var order = new Order(_user, (DateTime)dtpItemsDeadline.Value, tbFrom.Text,
-                    (DateTime)dtpItemsReady.Value, tbTo.Text);
-                
+                var order = new Order(_user, (DateTime) dtpItemsDeadline.Value, tbFrom.Text,
+                    (DateTime) dtpItemsReady.Value, tbTo.Text);
+
                 IOrderController orderController = new OrderController();
                 ValidationResult result = orderController.RegisterOrder(order);
 
@@ -63,11 +63,10 @@ namespace INPDS_App.View
                 }
                 else
                 {
-
                     string outMessage = "";
                     foreach (var message in result.GetMessages)
                     {
-                        outMessage += message + "\n"; 
+                        outMessage += message + "\n";
                     }
                     MessageBox.Show(outMessage, "Nastala Chyba", MessageBoxButton.OK,
                         MessageBoxImage.Error);
@@ -81,7 +80,6 @@ namespace INPDS_App.View
 
         private void Window_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-
             if (e.Key == Key.Enter)
             {
                 btnConfirm_Click(sender, e);

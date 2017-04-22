@@ -30,7 +30,7 @@ namespace INPDS_App.View
             _priceServiceClient = new PriceServiceClient();
         }
 
-        public RegisterInvoice(IUserController usrController):this()
+        public RegisterInvoice(IUserController usrController) : this()
         {
             _userController = usrController;
         }
@@ -87,29 +87,42 @@ namespace INPDS_App.View
         {
             if (dgOrders.SelectedIndex >= 0)
             {
-                gridCalculate.Visibility = Visibility.Visible;
-                Order order = (Order)dgOrders.SelectedItem;
+                Order order = (Order) dgOrders.SelectedItem;
                 double distance = 0;
 
                 try
                 {
                     distance = GetDistanceBetweenCities(order.From, order.To);
+                    CalculateShowPriceGui(distance);
                 }
                 catch (Exception)
                 {
                     DistanceErrorWindow.Show();
-                    distance = double.Parse(tbdistance.Text);
+                    DistanceErrorWindow.Closed += (o, args) =>
+                    {
+                        if (DistanceErrorWindow.DialogResult != null && DistanceErrorWindow.DialogResult.Value)
+                        {
+                            distance = double.Parse(tbdistance.Text);
+                            CalculateShowPriceGui(distance);
+                        }
+                    };
                 }
-
-                double result = await _priceServiceClient.CalculatePriceAsync(distance, "ReturnFreight");
-                txBoxPrice.Text = result.ToString();
-                gridCalculate.Visibility = Visibility.Collapsed;
             }
         }
 
+        private async void CalculateShowPriceGui(double distance)
+        {
+            gridCalculate.Visibility = Visibility.Visible;
+            var result = await _priceServiceClient.CalculatePriceAsync(distance, "ReturnFreight");
+            txBoxPrice.Text = result.ToString();
+            gridCalculate.Visibility = Visibility.Collapsed;
+        }
+
         #region Bing SOAP Services
+
         private double GetDistanceBetweenCities(string mestoA, string mestoB)
         {
+            gridCalculate.Visibility = Visibility.Visible;
             var request = new RouteRequest();
             request.Credentials = new Credentials();
             request.Credentials.ApplicationId = Properties.Resources.BingKey;
@@ -121,9 +134,10 @@ namespace INPDS_App.View
             request.Waypoints = waypoints.ToArray();
             RouteServiceClient client = new RouteServiceClient("BasicHttpBinding_IRouteService");
             RouteResponse routeResponse = client.CalculateRoute(request);
-
+            gridCalculate.Visibility = Visibility.Collapsed;
             return routeResponse.Result.Summary.Distance;
         }
+
         private Waypoint GetCityWaypoint(string mestoA)
         {
             var result = GeocodeAddress(mestoA);
@@ -133,6 +147,7 @@ namespace INPDS_App.View
             waypoint.Location.Longitude = result.Results[0].Locations[0].Longitude;
             return waypoint;
         }
+
         private GeocodeResponse GeocodeAddress(string address)
         {
             GeocodeRequest geocodeRequest = new GeocodeRequest();
@@ -146,11 +161,16 @@ namespace INPDS_App.View
             GeocodeServiceClient geoService = new GeocodeServiceClient("BasicHttpBinding_IGeocodeService");
             return geoService.Geocode(geocodeRequest);
         }
+
         #endregion
 
         private void btnDistanceOk_Click(object sender, RoutedEventArgs e)
         {
-            DistanceErrorWindow.Close();
+            if (!string.IsNullOrWhiteSpace(tbdistance.Text))
+            {
+                DistanceErrorWindow.DialogResult = true;
+                DistanceErrorWindow.Close();
+            }
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
@@ -161,7 +181,6 @@ namespace INPDS_App.View
 
         private void DistanceErrorWindow_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-
             if (e.Key == Key.Enter)
             {
                 btnDistanceOk_Click(sender, e);
