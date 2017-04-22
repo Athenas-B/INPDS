@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:INPDS_App.View"
         mc:Ignorable="d"
-        Title="ReturnFreight Login" Height="171.966" Width="300" ResizeMode="NoResize" Icon="/INPDS_App;component/Resources/ico-truck.ico">
+        Title="ReturnFreight Login" Height="171.966" Width="300" ResizeMode="NoResize" Icon="/INPDS_App;component/Resources/ico-truck.ico" PreviewKeyDown="Window_PreviewKeyDown">
     <Grid>
         <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Left" Margin="168,83,0,0" VerticalAlignment="Top" Width="75" Click="btnLogin_Click"/>
         <TextBox x:Name="tbLogin" HorizontalAlignment="Left" Height="23" Margin="146,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" VerticalContentAlignment="Center"/>

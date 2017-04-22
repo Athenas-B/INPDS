@@ -65,6 +65,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -101,6 +102,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Connected Services\CityService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\GeoService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\PriceServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -113,9 +124,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View\MainWindowReturnFreight.xaml.cs">
-      <DependentUpon>MainWindowReturnFreight.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
@@ -123,10 +131,6 @@
       <DependentUpon>RegisterInvoice.xaml</DependentUpon>
     </Compile>
     <Page Include="View\LoginView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\MainWindowReturnFreight.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -157,7 +161,49 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CityService\INPDS_App.CityService.MajorRoutesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CityService\INPDS_App.CityService.RouteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CityService\RouteService.wsdl" />
+    <None Include="Connected Services\CityService\routeservice.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CityService\routeservice1.wsdl" />
+    <None Include="Connected Services\CityService\routeservice1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CityService\routeservice2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CityService\routeservice3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\GeoService\GeocodeService.wsdl" />
+    <None Include="Connected Services\GeoService\GeocodeService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\GeoService\GeocodeService1.wsdl" />
+    <None Include="Connected Services\GeoService\GeocodeService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\GeoService\GeocodeService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\GeoService\GeocodeService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\GeoService\GeocodeService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\GeoService\INPDS_App.GeoService.GeocodeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\PriceServiceReference\service.wsdl" />
     <None Include="Connected Services\PriceServiceReference\service.xsd">
       <SubType>Designer</SubType>
@@ -199,6 +245,8 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\CityService\" />
+    <WCFMetadataStorage Include="Connected Services\GeoService\" />
     <WCFMetadataStorage Include="Connected Services\PriceServiceReference\" />
   </ItemGroup>
   <ItemGroup>
@@ -209,6 +257,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\PriceServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CityService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CityService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CityService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\GeoService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\GeoService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\GeoService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

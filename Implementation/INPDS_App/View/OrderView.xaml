@@ -7,7 +7,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="ReturnFreight Order" Height="280.5" Width="421" Closed="Window_Closed" ResizeMode="NoResize" Icon="/INPDS_App;component/Resources/ico-truck.ico">
+        Title="ReturnFreight Order" Height="280.5" Width="421" Closed="Window_Closed" ResizeMode="NoResize" Icon="/INPDS_App;component/Resources/ico-truck.ico" PreviewKeyDown="Window_PreviewKeyDown">
     <Grid>
         <TextBox x:Name="tbFrom" HorizontalAlignment="Left" Height="22" Margin="176,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" VerticalContentAlignment="Center"/>
         <TextBox x:Name="tbTo" HorizontalAlignment="Left" Height="23" Margin="176,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" VerticalContentAlignment="Center"/>
@@ -21,5 +21,6 @@
         <Button x:Name="btnConfirm" Content="Potvrdit" HorizontalAlignment="Left" Margin="129,197,0,0" VerticalAlignment="Top" Width="75" Click="btnConfirm_Click"/>
         <Button x:Name="btnCancel" Content="Zrušit" HorizontalAlignment="Left" Margin="209,197,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
         <Label x:Name="lbError" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,216,0,0" Width="393" FontWeight="Bold" Foreground="Red" HorizontalContentAlignment="Center"/>
+        <Button x:Name="btnLogout" Content="Odhlásit" HorizontalAlignment="Left" Margin="355,0,0,0" VerticalAlignment="Top" Width="60" Click="btnLogout_Click"/>
     </Grid>
 </Window>

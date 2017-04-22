@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 using INPDS_Core.Controller;
 using INPDS_Core.Model;
 
@@ -14,7 +15,7 @@ namespace INPDS_App.View
         {
             InitializeComponent();
         }
-
+        
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             IUserController userController = new UserController();
@@ -24,9 +25,19 @@ namespace INPDS_App.View
 
                 if (userController.IsLoggedIn)
                 {
-                    var mainView = new MainWindowReturnFreight(userController);
-                    mainView.Show();
-                    Close();
+                    if (userController.LoggedUser.UserRole == UserRole.Customer)
+                    {
+                        var orderView = new OrderView(userController);
+                        orderView.Show();
+                        Close();
+                    }
+                    else
+                    {
+                        var registerInvoiceView = new RegisterInvoice(userController);
+                        registerInvoiceView.Show();
+                        Close();
+                    }
+
                 }
                 else
                 {
@@ -36,6 +47,14 @@ namespace INPDS_App.View
             catch (Exception)
             {
                 lbError.Content = "Přihlášení se nezdařilo";
+            }
+        }
+
+        private void Window_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                btnLogin_Click(sender, e);
             }
         }
     }

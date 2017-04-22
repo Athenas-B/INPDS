@@ -1,15 +1,18 @@
 ﻿using System;
-using System.ComponentModel;
+using System.Collections.Generic;
 using System.Data.Entity;
-using System.Globalization;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Threading;
+using System.Windows.Input;
+using INPDS_App.CityService;
+using INPDS_App.GeoService;
 using INPDS_App.PriceServiceReference;
 using INPDS_Core.Controller;
 using INPDS_Core.DataAccess;
 using INPDS_Core.DTO;
 using INPDS_Core.Model;
+using Credentials = INPDS_App.CityService.Credentials;
+using MessageBox = System.Windows.MessageBox;
 
 namespace INPDS_App.View
 {
@@ -34,9 +37,8 @@ namespace INPDS_App.View
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            var mainWindow = new MainWindowReturnFreight(_userController);
-            mainWindow.Show();
-            Close();
+            dgOrders.SelectedIndex = -1;
+            txBoxPrice.Text = "";
         }
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
@@ -83,10 +85,103 @@ namespace INPDS_App.View
 
         private async void dgOrders_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            gridCalculate.Visibility = Visibility.Visible;
-            double result = await _priceServiceClient.CalculatePriceAsync(1000, "ReturnFreight");
-            txBoxPrice.Text = result.ToString();
-            gridCalculate.Visibility = Visibility.Collapsed;
+            if (dgOrders.SelectedIndex >= 0)
+            {
+                gridCalculate.Visibility = Visibility.Visible;
+                Order order = (Order)dgOrders.SelectedItem;
+                double distance = 0;
+
+                try
+                {
+                    distance = GetDistanceBetweenCities(order.From, order.To);
+                }
+                catch (Exception)
+                {
+                    DistanceErrorWindow.Show();
+                    distance = double.Parse(tbdistance.Text);
+                }
+
+                double result = await _priceServiceClient.CalculatePriceAsync(distance, "ReturnFreight");
+                txBoxPrice.Text = result.ToString();
+                gridCalculate.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        #region Bing SOAP Services
+        private double GetDistanceBetweenCities(string mestoA, string mestoB)
+        {
+            var request = new RouteRequest();
+            request.Credentials = new Credentials();
+            request.Credentials.ApplicationId = Properties.Resources.BingKey;
+            List<Waypoint> waypoints = new List<Waypoint>(2);
+
+            waypoints.Add(GetCityWaypoint(mestoA));
+            waypoints.Add(GetCityWaypoint(mestoB));
+
+            request.Waypoints = waypoints.ToArray();
+            RouteServiceClient client = new RouteServiceClient("BasicHttpBinding_IRouteService");
+            RouteResponse routeResponse = client.CalculateRoute(request);
+
+            return routeResponse.Result.Summary.Distance;
+        }
+        private Waypoint GetCityWaypoint(string mestoA)
+        {
+            var result = GeocodeAddress(mestoA);
+            Waypoint waypoint = new Waypoint();
+            waypoint.Location = new CityService.Location();
+            waypoint.Location.Latitude = result.Results[0].Locations[0].Latitude;
+            waypoint.Location.Longitude = result.Results[0].Locations[0].Longitude;
+            return waypoint;
+        }
+        private GeocodeResponse GeocodeAddress(string address)
+        {
+            GeocodeRequest geocodeRequest = new GeocodeRequest();
+            geocodeRequest.Credentials = new GeoService.Credentials();
+            geocodeRequest.Credentials.ApplicationId = Properties.Resources.BingKey;
+            geocodeRequest.Query = address;
+
+            GeocodeOptions geocodeOptions = new GeocodeOptions();
+            geocodeRequest.Options = geocodeOptions;
+
+            GeocodeServiceClient geoService = new GeocodeServiceClient("BasicHttpBinding_IGeocodeService");
+            return geoService.Geocode(geocodeRequest);
+        }
+        #endregion
+
+        private void btnDistanceOk_Click(object sender, RoutedEventArgs e)
+        {
+            DistanceErrorWindow.Close();
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void DistanceErrorWindow_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+
+            if (e.Key == Key.Enter)
+            {
+                btnDistanceOk_Click(sender, e);
+            }
+        }
+
+        private void Window_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                btnConfirm_Click(sender, e);
+            }
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            _userController.Logout();
+            var loginView = new LoginView();
+            loginView.Show();
+            Close();
         }
     }
 }

@@ -61,6 +61,15 @@ namespace INPDS_App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AjrjAxlnKV0DIWLVnH6Ui_f3a_XnrGj13jLpDiWkO7mHqhhIFhkDAvfuqtAo6QKa.
+        /// </summary>
+        public static string BingKey {
+            get {
+                return ResourceManager.GetString("BingKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon ico_truck {
