@@ -10,15 +10,13 @@ namespace INPDS_Core.Controller
         public ValidationResult RegisterOrder(Order order)
         {
             var validationResult = Validate(order);
-            if (validationResult.IsValid)
+            if (!validationResult.IsValid) return validationResult;
+            using (var context = new ReturnFreightContext())
             {
-                using (var context = new ReturnFreightContext())
-                {
-                    context.Orders.Add(order);
-                    context.SaveChanges();
-                }
+                context.Users.Attach(order.Customer);
+                context.Orders.Add(order);
+                return context.TrySaveChanges();
             }
-            return validationResult;
         }
 
         private static ValidationResult Validate(Order order)

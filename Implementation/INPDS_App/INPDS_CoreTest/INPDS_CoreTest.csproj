@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="OrderControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="InvoiceControllerTest.cs" />
     <Compile Include="UserControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
