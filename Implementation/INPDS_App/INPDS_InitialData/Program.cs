@@ -21,11 +21,17 @@ namespace INPDS_InitialData
         {
             using (SHA512 sha = new SHA512Managed())
             {
-                var encoding = Encoding.UTF8;
-                context.Users.Add(new User("user", encoding.GetString(sha.ComputeHash(encoding.GetBytes("pass"))),
-                    UserRole.Customer));
+                context.Users.Add(CreateUser("customer", sha, "pass", UserRole.Customer));
+                context.Users.Add(CreateUser("accountant", sha, "pass", UserRole.Accountant));
                 context.SaveChanges();
             }
+        }
+
+        private static User CreateUser(string userName, SHA512 sha, string pass, UserRole role)
+        {
+            var encoding = Encoding.UTF8;
+            var entity = new User(userName, encoding.GetString(sha.ComputeHash(encoding.GetBytes(pass))), role);
+            return entity;
         }
     }
 }
