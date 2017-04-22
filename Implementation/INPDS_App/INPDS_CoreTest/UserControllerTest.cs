@@ -11,7 +11,7 @@ namespace INPDS_CoreTest
         public void IsLoggedInTestTrue()
         {
             IUserController userController = new UserController();
-            userController.Login("user", "pass");
+            userController.Login("customer", "pass");
             Assert.IsTrue(userController.IsLoggedIn);
         }
 
@@ -19,7 +19,7 @@ namespace INPDS_CoreTest
         public void IsLoggedInTestFalse()
         {
             IUserController userController = new UserController();
-            userController.Login("user", "passs");
+            userController.Login("customer", "passs");
             Assert.IsFalse(userController.IsLoggedIn);
         }
 
@@ -27,7 +27,7 @@ namespace INPDS_CoreTest
         public void LoggedUserTestIsNull()
         {
             IUserController userController = new UserController();
-            userController.Login("user", "passs");
+            userController.Login("customer", "passs");
             Assert.IsNull(userController.LoggedUser);
         }
 
@@ -35,7 +35,7 @@ namespace INPDS_CoreTest
         public void LoggedUserTestNotNull()
         {
             IUserController userController = new UserController();
-            userController.Login("user", "pass");
+            userController.Login("customer", "pass");
             Assert.IsNotNull(userController.LoggedUser);
         }
 
@@ -43,7 +43,7 @@ namespace INPDS_CoreTest
         public void LogOutTest()
         {
             IUserController userController = new UserController();
-            userController.Login("user", "pass");
+            userController.Login("customer", "pass");
 
             Assert.IsNotNull(userController.LoggedUser);
 
