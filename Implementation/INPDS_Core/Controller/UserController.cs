@@ -53,7 +53,6 @@ namespace INPDS_Core.Controller
 
         public void Logout()
         {
-            _instance = null;
             LoggedUser = null;
         }
     }
