@@ -18,7 +18,7 @@ namespace INPDS_App.View
         
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            IUserController userController = new UserController();
+            IUserController userController = UserController.Instance;
             try
             {
                 userController.Login(tbLogin.Text, tbPassword.Password);
@@ -27,13 +27,13 @@ namespace INPDS_App.View
                 {
                     if (userController.LoggedUser.UserRole == UserRole.Customer)
                     {
-                        var orderView = new OrderView(userController);
+                        var orderView = new OrderView();
                         orderView.Show();
                         Close();
                     }
                     else
                     {
-                        var registerInvoiceView = new RegisterInvoice(userController);
+                        var registerInvoiceView = new RegisterInvoice();
                         registerInvoiceView.Show();
                         Close();
                     }

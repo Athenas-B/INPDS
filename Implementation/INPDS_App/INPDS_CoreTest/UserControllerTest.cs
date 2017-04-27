@@ -10,7 +10,7 @@ namespace INPDS_CoreTest
         [TestMethod]
         public void IsLoggedInTestTrue()
         {
-            IUserController userController = new UserController();
+            IUserController userController = UserController.Instance;
             userController.Login("customer", "pass");
             Assert.IsTrue(userController.IsLoggedIn);
         }
@@ -18,7 +18,7 @@ namespace INPDS_CoreTest
         [TestMethod]
         public void IsLoggedInTestFalse()
         {
-            IUserController userController = new UserController();
+            IUserController userController = UserController.Instance;
             userController.Login("customer", "passs");
             Assert.IsFalse(userController.IsLoggedIn);
         }
@@ -26,7 +26,7 @@ namespace INPDS_CoreTest
         [TestMethod]
         public void LoggedUserTestIsNull()
         {
-            IUserController userController = new UserController();
+            IUserController userController = UserController.Instance;
             userController.Login("customer", "passs");
             Assert.IsNull(userController.LoggedUser);
         }
@@ -34,7 +34,7 @@ namespace INPDS_CoreTest
         [TestMethod]
         public void LoggedUserTestNotNull()
         {
-            IUserController userController = new UserController();
+            IUserController userController = UserController.Instance;
             userController.Login("customer", "pass");
             Assert.IsNotNull(userController.LoggedUser);
         }
@@ -42,7 +42,7 @@ namespace INPDS_CoreTest
         [TestMethod]
         public void LogOutTest()
         {
-            IUserController userController = new UserController();
+            IUserController userController = UserController.Instance;
             userController.Login("customer", "pass");
 
             Assert.IsNotNull(userController.LoggedUser);
@@ -50,6 +50,12 @@ namespace INPDS_CoreTest
             userController.Logout();
 
             Assert.IsNull(userController.LoggedUser);
+        }
+
+        [TestCleanup()]
+        public void LogOutUser()
+        {
+            UserController.Instance.Logout();
         }
     }
 }

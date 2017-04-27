@@ -8,11 +8,29 @@ namespace INPDS_Core.Controller
 {
     public class UserController : IUserController
     {
+        private static UserController _instance;
+
+        private UserController()
+        {
+        }
+
         public User LoggedUser { get; private set; }
 
         public bool IsLoggedIn
         {
             get { return LoggedUser != null; }
+        }
+
+        public static UserController Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new UserController();
+                }
+                return _instance;
+            }
         }
 
         public void Login(string username, string password)
@@ -35,6 +53,7 @@ namespace INPDS_Core.Controller
 
         public void Logout()
         {
+            _instance = null;
             LoggedUser = null;
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using INPDS_Core.Controller;
+using INPDS_Core.DataAccess;
 using INPDS_Core.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -18,6 +19,7 @@ namespace INPDS_CoreTest
             var customer = GetCustomer();
             var order = new Order(customer, new DateTime(2017, 6, 3), "from", new DateTime(2017, 5, 5), "to");
             Assert.IsTrue(_orderController.RegisterOrder(order).IsValid);
+            DeleteTestOrder(order);
         }
 
         [TestMethod]
@@ -87,12 +89,21 @@ namespace INPDS_CoreTest
 
         private User GetCustomer()
         {
-            IUserController userController = new UserController();
+            IUserController userController = UserController.Instance;
             userController.Login("customer", "pass");
             var customer = userController.LoggedUser;
             return customer;
         }
 
+        private void DeleteTestOrder(Order i)
+        {
+            using (var context = new ReturnFreightContext())
+            {
+                context.Orders.Attach(i);
+                context.Orders.Remove(i);
+                context.TrySaveChanges();
+            }
+        }
         #endregion
     }
 }

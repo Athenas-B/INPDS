@@ -47,7 +47,7 @@ namespace INPDS_CoreTest
 
         private static User GetCustomer()
         {
-            IUserController userController = new UserController();
+            IUserController userController = UserController.Instance;
             userController.Login("customer", "pass");
             var customer = userController.LoggedUser;
             return customer;

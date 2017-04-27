@@ -17,16 +17,12 @@ namespace INPDS_App.View
         private readonly User _user;
         private readonly IUserController _userController;
 
+
         public OrderView()
         {
             InitializeComponent();
-        }
-
-        public OrderView(IUserController usrControl)
-        {
-            InitializeComponent();
-            _user = usrControl.LoggedUser;
-            _userController = usrControl;
+            _userController = UserController.Instance;
+            _user = _userController.LoggedUser;
 
             Title += " | Uživatel: " + _user.UserName;
         }

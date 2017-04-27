@@ -28,13 +28,11 @@ namespace INPDS_App.View
         {
             InitializeComponent();
             _priceServiceClient = new PriceServiceClient();
+            _userController = UserController.Instance;
+          
+            Title += " | Uživatel: " + _userController.LoggedUser.UserName;
         }
-
-        public RegisterInvoice(IUserController usrController) : this()
-        {
-            _userController = usrController;
-        }
-
+ 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             dgOrders.SelectedIndex = -1;
@@ -132,7 +130,7 @@ namespace INPDS_App.View
             waypoints.Add(GetCityWaypoint(mestoB));
 
             request.Waypoints = waypoints.ToArray();
-            RouteServiceClient client = new RouteServiceClient("BasicHttpBinding_IRouteService");
+            IRouteService client = new RouteServiceClient("BasicHttpBinding_IRouteService");
             RouteResponse routeResponse = client.CalculateRoute(request);
             gridCalculate.Visibility = Visibility.Collapsed;
             return routeResponse.Result.Summary.Distance;
@@ -158,7 +156,7 @@ namespace INPDS_App.View
             GeocodeOptions geocodeOptions = new GeocodeOptions();
             geocodeRequest.Options = geocodeOptions;
 
-            GeocodeServiceClient geoService = new GeocodeServiceClient("BasicHttpBinding_IGeocodeService");
+            IGeocodeService geoService = new GeocodeServiceClient("BasicHttpBinding_IGeocodeService");
             return geoService.Geocode(geocodeRequest);
         }
 
