@@ -46,17 +46,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\TripPlanner.cs" />
     <Compile Include="Interfaces\IInvoiceController.cs" />
     <Compile Include="Controller\InvoiceController.cs" />
+    <Compile Include="Interfaces\IObservable.cs" />
     <Compile Include="Interfaces\IOrderController.cs" />
+    <Compile Include="Interfaces\ITripPlanner.cs" />
     <Compile Include="Interfaces\IUserController.cs" />
     <Compile Include="Controller\OrderController.cs" />
     <Compile Include="Controller\UserController.cs" />
     <Compile Include="DataAccess\ReturnFreightContext.cs" />
     <Compile Include="DTO\ValidationResult.cs" />
+    <Compile Include="Interfaces\IObserver.cs" />
     <Compile Include="Model\Invoice.cs" />
     <Compile Include="Model\Order.cs" />
+    <Compile Include="Model\Trip.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="Observers\CarNavigationNotifier.cs" />
+    <Compile Include="Observers\EnviromentDepartmentNotifier.cs" />
+    <Compile Include="Observers\MailSender.cs" />
+    <Compile Include="Observers\SMSSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

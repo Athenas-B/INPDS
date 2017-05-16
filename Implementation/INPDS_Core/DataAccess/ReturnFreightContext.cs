@@ -14,6 +14,7 @@ namespace INPDS_Core.DataAccess
         public DbSet<User> Users { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<Trip> Trips { get; set; }
 
         public ValidationResult TrySaveChanges()
         {
