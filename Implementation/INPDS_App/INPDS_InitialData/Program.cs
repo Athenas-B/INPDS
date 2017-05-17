@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Security.Cryptography;
 using System.Text;
 using INPDS_Core.DataAccess;
@@ -10,11 +11,15 @@ namespace INPDS_InitialData
     {
         private static void Main(string[] args)
         {
+            Console.WriteLine("Loading initial data...");
             Database.SetInitializer(new DropCreateDatabaseAlways<ReturnFreightContext>());
             using (var context = new ReturnFreightContext())
             {
+                Console.WriteLine("Initializing users...");
                 InitializeUsers(context);
+                Console.WriteLine("Done initializing users.");
             }
+            Console.WriteLine("Done loading initial data.");
         }
 
         private static void InitializeUsers(ReturnFreightContext context)

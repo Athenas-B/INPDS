@@ -7,7 +7,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace INPDS_CoreTest
 {
-    //TODO Implement tests
     [TestClass]
     public class OrderControllerTest
     {
@@ -16,32 +15,32 @@ namespace INPDS_CoreTest
         [TestMethod]
         public void RegisterOrderTrue()
         {
-            var customer = GetCustomer();
-            var order = new Order(customer, new DateTime(2017, 6, 3), "from", new DateTime(2017, 5, 5), "to");
+            var customer = TestUtils.Customer;
+            var order = new Order(customer, TestUtils.NextWeek, "from", TestUtils.Tomorrow, "to");
             Assert.IsTrue(_orderController.RegisterOrder(order).IsValid);
-            DeleteTestOrder(order);
+            TestUtils.DeleteTestOrder(order);
         }
 
         [TestMethod]
         public void RegisterOrderTestPickUpDate()
         {
-            var customer = GetCustomer();
-            var order = new Order(customer, new DateTime(2017, 6, 3), "from", new DateTime(2017, 7, 5), "to");
+            var customer = TestUtils.Customer;
+            var order = new Order(customer, TestUtils.NextWeek, "from", DateTime.Now.AddDays(-1), "to");
             Assert.IsFalse(_orderController.RegisterOrder(order).IsValid);
         }
 
         [TestMethod]
         public void RegisterOrderTestNullCustomer()
         {
-            var order = new Order(null, new DateTime(2017, 6, 3), "from", new DateTime(2017, 5, 5), "to");
+            var order = new Order(null, TestUtils.NextWeek, "from", TestUtils.Tomorrow, "to");
             Assert.IsFalse(_orderController.RegisterOrder(order).IsValid);
         }
 
         [TestMethod]
         public void RegisterOrderTestNullFrom()
         {
-            var customer = GetCustomer();
-            var order = new Order(customer, new DateTime(2017, 6, 3), null, new DateTime(2017, 5, 5), "to");
+            var customer = TestUtils.Customer;
+            var order = new Order(customer, TestUtils.NextWeek, null, TestUtils.Tomorrow, "to");
             Assert.IsFalse(_orderController.RegisterOrder(order).IsValid);
         }
 
@@ -49,31 +48,32 @@ namespace INPDS_CoreTest
         [TestMethod]
         public void RegisterOrderTestNullTo()
         {
-            var customer = GetCustomer();
-            var order = new Order(customer, new DateTime(2017, 6, 3), "from", new DateTime(2017, 5, 5), null);
+            var customer = TestUtils.Customer;
+            var order = new Order(customer, TestUtils.NextWeek, "from", TestUtils.Tomorrow, null);
             Assert.IsFalse(_orderController.RegisterOrder(order).IsValid);
         }
 
         [TestMethod]
         public void RegisterOrderTestNullFromAndTo()
         {
-            var customer = GetCustomer();
-            var order = new Order(customer, new DateTime(2017, 6, 3), null, new DateTime(2017, 5, 5), null);
-            Assert.AreEqual(1, _orderController.RegisterOrder(order).GetMessages.Count());
+            var customer = TestUtils.Customer;
+            var order = new Order(customer, TestUtils.NextWeek, null, TestUtils.Tomorrow, null);
+            var messages = _orderController.RegisterOrder(order).GetMessages;
+            Assert.AreEqual(1, messages.Count());
         }
 
         [TestMethod]
         public void RegisterOrderTestPickUpAndDeliveryDate()
         {
-            var customer = GetCustomer();
-            var order = new Order(customer, new DateTime(2016, 6, 3), "from", new DateTime(2016, 5, 5), "to");
+            var customer = TestUtils.Customer;
+            var order = new Order(customer, DateTime.Now.AddDays(-1), "from", DateTime.Now.AddDays(-10), "to");
             Assert.AreEqual(2, _orderController.RegisterOrder(order).GetMessages.Count());
         }
 
         [TestMethod]
         public void RegisterOrderTestPickUpAndDeliveryDateCustomerFromTo()
         {
-            var order = new Order(null, new DateTime(2016, 6, 3), null, new DateTime(2016, 5, 5), null);
+            var order = new Order(null, DateTime.Now.AddDays(-1), null, DateTime.Now.AddDays(-10), null);
             Assert.AreEqual(4, _orderController.RegisterOrder(order).GetMessages.Count());
         }
 
@@ -83,27 +83,11 @@ namespace INPDS_CoreTest
             var order = new Order(new User("newuser", "password", UserRole.Planner), DateTime.Now.AddDays(2), "a",
                 DateTime.Now.AddDays(1), "b");
             _orderController.RegisterOrder(order);
-        }
-
-        #region Private method
-
-        private User GetCustomer()
-        {
-            IUserController userController = UserController.Instance;
-            userController.Login("customer", "pass");
-            var customer = userController.LoggedUser;
-            return customer;
-        }
-
-        private void DeleteTestOrder(Order i)
-        {
             using (var context = new ReturnFreightContext())
             {
-                context.Orders.Attach(i);
-                context.Orders.Remove(i);
-                context.TrySaveChanges();
+                var count = context.Users.Count(user => user.UserName == "newuser" && user.UserRole == UserRole.Planner);
+                Assert.AreEqual(0, count);
             }
         }
-        #endregion
     }
 }
