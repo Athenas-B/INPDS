@@ -9,6 +9,8 @@ namespace INPDS_InitialData
 {
     internal class Program
     {
+        private static User _customer;
+
         private static void Main(string[] args)
         {
             Console.WriteLine("Loading initial data...");
@@ -18,6 +20,11 @@ namespace INPDS_InitialData
                 Console.WriteLine("Initializing users...");
                 InitializeUsers(context);
                 Console.WriteLine("Done initializing users.");
+                Console.WriteLine("Initializing dummy orders...");
+                InitializeOrders(context);
+                Console.WriteLine("Done initializing dummy orders.");
+                Console.WriteLine("Saving to DB...");
+                context.SaveChanges();
             }
             Console.WriteLine("Done loading initial data.");
         }
@@ -26,10 +33,41 @@ namespace INPDS_InitialData
         {
             using (SHA512 sha = new SHA512Managed())
             {
-                context.Users.Add(CreateUser("customer", sha, "pass", UserRole.Customer));
+                _customer = CreateUser("customer", sha, "pass", UserRole.Customer);
+                context.Users.Add(_customer);
                 context.Users.Add(CreateUser("accountant", sha, "pass", UserRole.Accountant));
-                context.SaveChanges();
+                context.Users.Add(CreateUser("planner", sha, "pass", UserRole.Planner));
             }
+        }
+
+        private static void InitializeOrders(ReturnFreightContext context)
+        {
+            context.Orders.Add(new Order
+            {
+                Customer = _customer,
+                DeliveryDeadline = DateTime.Now.AddDays(30),
+                PickupDate = DateTime.Now.AddDays(7),
+                From = "Pardubice",
+                To = "Brno"
+            });
+
+            context.Orders.Add(new Order
+            {
+                Customer = _customer,
+                DeliveryDeadline = DateTime.Now.AddDays(60),
+                PickupDate = DateTime.Now.AddDays(35),
+                From = "Brno",
+                To = "Pardubice"
+            });
+
+            context.Orders.Add(new Order
+            {
+                Customer = _customer,
+                DeliveryDeadline = DateTime.Now.AddDays(60),
+                PickupDate = DateTime.Now.AddDays(32),
+                From = "Hradec Králové",
+                To = "Pardubice"
+            });
         }
 
         private static User CreateUser(string userName, SHA512 sha, string pass, UserRole role)
