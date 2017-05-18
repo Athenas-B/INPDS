@@ -43,9 +43,9 @@ namespace INPDS_CoreTest
             }
         }
 
-        public static Order CreateTestOrder()
+        public static Order CreateTestOrder(DateTime deadline, DateTime pickupDate, string from = "from", string to = "to")
         {
-            var order = new Order(Customer, NextWeek, "testOrder", Tomorrow, "to");
+            var order = new Order(Customer, deadline, from, pickupDate, to);
             using (var context = new ReturnFreightContext())
             {
                 context.Users.Attach(order.Customer);
@@ -53,6 +53,11 @@ namespace INPDS_CoreTest
                 context.TrySaveChanges();
             }
             return order;
+        }
+
+        public static Order CreateTestOrder(string from = "from", string to = "to")
+        {
+            return CreateTestOrder(NextWeek, Tomorrow);
         }
 
         public static void DeleteTestOrder(Order o)
