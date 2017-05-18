@@ -1,0 +1,10 @@
+﻿<Window x:Class="INPDS_App.View.PlannerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PlannerView" Height="328" Width="427">
+    <Grid>
+        <Button x:Name="btnLogout" Content="Odhlásit" HorizontalAlignment="Left" Margin="345,10,-113,0"
+    		VerticalAlignment="Top" Width="60" Click="btnLogout_Click" />
+
+    </Grid>
+</Window>

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Input;
+using System.Windows.Media;
 using INPDS_Core.Controller;
-using INPDS_Core.DTO;
 using INPDS_Core.Model;
 
 namespace INPDS_App.View
@@ -49,7 +47,7 @@ namespace INPDS_App.View
                     (DateTime) dtpItemsReady.Value, tbTo.Text);
 
                 IOrderController orderController = new OrderController();
-                ValidationResult result = orderController.RegisterOrder(order);
+                var result = orderController.RegisterOrder(order);
 
                 lbError.Content = "";
                 if (result.IsValid)
@@ -59,7 +57,7 @@ namespace INPDS_App.View
                 }
                 else
                 {
-                    string outMessage = "";
+                    var outMessage = "";
                     foreach (var message in result.GetMessages)
                     {
                         outMessage += message + "\n";
@@ -74,7 +72,7 @@ namespace INPDS_App.View
             }
         }
 
-        private void Window_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
@@ -84,10 +82,7 @@ namespace INPDS_App.View
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
-            _userController.Logout();
-            var loginView = new LoginView();
-            loginView.Show();
-            Close();
+            Logout.From(this);
         }
     }
 }

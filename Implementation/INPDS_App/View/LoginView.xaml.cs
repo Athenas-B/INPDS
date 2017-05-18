@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using INPDS_Core.Controller;
@@ -11,11 +12,16 @@ namespace INPDS_App.View
     /// </summary>
     public partial class LoginView : Window
     {
+        private readonly Dictionary<UserRole, Func<Window>> _userWindows = new Dictionary<UserRole, Func<Window>>();
+
         public LoginView()
         {
             InitializeComponent();
+            _userWindows[UserRole.Customer] = () => new OrderView();
+            _userWindows[UserRole.Accountant] = () => new RegisterInvoice();
+            _userWindows[UserRole.Planner] = () => new PlannerView();
         }
-        
+
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             IUserController userController = UserController.Instance;
@@ -25,19 +31,9 @@ namespace INPDS_App.View
 
                 if (userController.IsLoggedIn)
                 {
-                    if (userController.LoggedUser.UserRole == UserRole.Customer)
-                    {
-                        var orderView = new OrderView();
-                        orderView.Show();
-                        Close();
-                    }
-                    else
-                    {
-                        var registerInvoiceView = new RegisterInvoice();
-                        registerInvoiceView.Show();
-                        Close();
-                    }
-
+                    var window = _userWindows[userController.LoggedUser.UserRole]();
+                    window.Show();
+                    Close();
                 }
                 else
                 {
@@ -50,7 +46,7 @@ namespace INPDS_App.View
             }
         }
 
-        private void Window_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
