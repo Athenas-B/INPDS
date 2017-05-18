@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using INPDS_Core.Model;
-
-namespace INPDS_Core.Interfaces
+﻿namespace INPDS_Core.Interfaces
 {
-    public interface IObservable
+    public interface IObservable<T>
     {
-        void AddObserver(IObserver observer);
-        void RemoveObserver(IObserver observer);
-        void NotifyObservers(Trip trip);
+        void AddObserver(IObserver<T> observer);
+        void RemoveObserver(IObserver<T> observer);
+        void NotifyObservers(T data);
     }
 }

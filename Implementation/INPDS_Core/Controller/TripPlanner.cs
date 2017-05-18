@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using INPDS_Core.DataAccess;
 using INPDS_Core.DTO;
 using INPDS_Core.Interfaces;
@@ -13,9 +10,9 @@ namespace INPDS_Core.Controller
 {
     public class TripPlanner : ITripPlanner
     {
-        private List<IObserver> _observers = new List<IObserver>();
+        private readonly List<IObserver<Trip>> _observers = new List<IObserver<Trip>>();
 
-        public void AddObserver(IObserver observer)
+        public void AddObserver(IObserver<Trip> observer)
         {
             _observers.Add(observer);
         }
@@ -28,35 +25,74 @@ namespace INPDS_Core.Controller
             }
         }
 
-        public ValidationResult PlanTrip(Order primaryOrder, Order secondaryOrder = null)
+        public ValidationResult PlanTrip(Order primaryOrder)
         {
+            if (primaryOrder == null)
+            {
+                return ValidationResult.Error("Zakázka nebyla vybrána.");
+            }
+
             using (var context = new ReturnFreightContext())
             {
-                // Is trip with this primary order already in DB?
-                var foundTrip = context.Trips.FirstOrDefault(trip => trip.PrimaryOrder == primaryOrder);
-
                 context.Orders.Attach(primaryOrder);
-                context.Orders.Attach(secondaryOrder);
-                if (foundTrip == null)
+
+                // Is trip with this order already in DB?
+                var validationResult = ValidateOrderNotPlannedYet(primaryOrder, context);
+                if (!validationResult.IsValid)
                 {
-                    // Add a new trip
-                    Trip newTrip = new Trip(primaryOrder, secondaryOrder);
-                    context.Trips.Add(newTrip);
-                    return context.TrySaveChanges();
+                    return validationResult;
                 }
-                else
-                {
-                    // Update existing trip
-                    context.Trips.Attach(foundTrip);
-                    foundTrip.SecondaryOrder = secondaryOrder;
-                    return context.TrySaveChanges();
-                }
+
+                // Add a new trip
+                var newTrip = new Trip(primaryOrder);
+                context.Trips.Add(newTrip);
+                return context.TrySaveChanges();
             }
         }
 
-        public void RemoveObserver(IObserver observer)
+        public ValidationResult PlanTrip(Trip trip, Order secondaryOrder)
+        {
+            if (trip == null || secondaryOrder == null)
+            {
+                return ValidationResult.Error("Existující jízda a/nebo zakázka nebyla vybrána.");
+            }
+
+            if (trip.SecondaryOrder != null)
+            {
+                return ValidationResult.Error("Vybraná jízda již má naplánovanou objednávku pro zpáteční cestu.");
+            }
+
+            using (var context = new ReturnFreightContext())
+            {
+                context.Orders.Attach(secondaryOrder);
+                context.Trips.Attach(trip);
+
+                // Is trip with this order already in DB?
+                var validationResult = ValidateOrderNotPlannedYet(secondaryOrder, context);
+                if (!validationResult.IsValid)
+                {
+                    return validationResult;
+                }
+
+                trip.SecondaryOrder = secondaryOrder;
+                return context.TrySaveChanges();
+            }
+        }
+
+        public void RemoveObserver(IObserver<Trip> observer)
         {
             _observers.Remove(observer);
+        }
+
+        private static ValidationResult ValidateOrderNotPlannedYet(Order order, ReturnFreightContext context)
+        {
+            var foundTrip =
+                context.Trips.FirstOrDefault(
+                    existingTrip =>
+                        existingTrip.PrimaryOrder.Id == order.Id || existingTrip.SecondaryOrder.Id == order.Id);
+            return foundTrip == null
+                ? ValidationResult.Ok()
+                : ValidationResult.Error("Pro zadanou objednávku je již jízda naplánovaná.");
         }
 
         public static ITripPlanner CreateTripPlanner()
