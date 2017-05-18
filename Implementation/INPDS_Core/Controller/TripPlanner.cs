@@ -46,9 +46,10 @@ namespace INPDS_Core.Controller
                 // Add a new trip
                 var newTrip = new Trip(primaryOrder);
                 context.Trips.Add(newTrip);
-                return context.TrySaveChanges();
+                return TrySaveAndNotify(context, newTrip);
             }
         }
+
 
         public ValidationResult PlanTrip(Trip trip, Order secondaryOrder)
         {
@@ -73,15 +74,24 @@ namespace INPDS_Core.Controller
                 {
                     return validationResult;
                 }
-
                 trip.SecondaryOrder = secondaryOrder;
-                return context.TrySaveChanges();
+                return TrySaveAndNotify(context, trip);
             }
         }
 
         public void RemoveObserver(IObserver<Trip> observer)
         {
             _observers.Remove(observer);
+        }
+
+        private ValidationResult TrySaveAndNotify(ReturnFreightContext context, Trip newTrip)
+        {
+            var savedChanges = context.TrySaveChanges();
+            if (savedChanges.IsValid)
+            {
+                NotifyObservers(newTrip);
+            }
+            return savedChanges;
         }
 
         private static ValidationResult ValidateOrderNotPlannedYet(Order order, ReturnFreightContext context)
