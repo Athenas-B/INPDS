@@ -86,11 +86,9 @@ namespace INPDS_Core.Controller
 
         private static ValidationResult ValidateOrderNotPlannedYet(Order order, ReturnFreightContext context)
         {
-            var foundTrip =
-                context.Trips.FirstOrDefault(
-                    existingTrip =>
-                        existingTrip.PrimaryOrder.Id == order.Id || existingTrip.SecondaryOrder.Id == order.Id);
-            return foundTrip == null
+            var count =
+                context.Trips.Count(trip => trip.PrimaryOrder.Id == order.Id || trip.SecondaryOrder.Id == order.Id);
+            return count == 0
                 ? ValidationResult.Ok()
                 : ValidationResult.Error("Pro zadanou objednávku je již jízda naplánovaná.");
         }
