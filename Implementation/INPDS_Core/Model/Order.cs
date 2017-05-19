@@ -19,16 +19,18 @@ namespace INPDS_Core.Model
             PickupDate = pickupDate;
             To = to;
         }
-
-        public User Customer { get; set; }
-        public DateTime DeliveryDeadline { get; set; }
-        public string From { get; set; }
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
-        public DateTime PickupDate { get; set; }
+        public User Customer { get; set; }
+        public string From { get; set; }
         public string To { get; set; }
+        public DateTime PickupDate { get; set; }
+        public DateTime DeliveryDeadline { get; set; }
+        public override string ToString()
+        {
+            return string.Format("Customer: {0}, From: {2}, To: {4}, PickupDate: {3}, DeliveryDeadline: {1}", Customer,
+                DeliveryDeadline, From, PickupDate, To);
+        }
     }
 }

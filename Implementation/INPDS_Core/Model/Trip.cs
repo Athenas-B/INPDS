@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace INPDS_Core.Model
 {
@@ -25,14 +21,16 @@ namespace INPDS_Core.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [DisplayName("Zakázka cesty")]
         [Required]
         public Order PrimaryOrder { get; set; }
 
+        [DisplayName("Zakázka zpáteční cesty")]
         public Order SecondaryOrder { get; set; }
 
         public override string ToString()
         {
-            return string.Format("PrimaryOrder: {0}, SecondaryOrder: {1}", PrimaryOrder, SecondaryOrder);
+            return string.Format("Zakázka cesty: {0}, Zakázka zpáteční cesty: {1}", PrimaryOrder, SecondaryOrder);
         }
     }
 }

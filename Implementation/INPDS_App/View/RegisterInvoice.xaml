@@ -7,7 +7,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="RegisterInvoice" Height="385.714" Width="528.827" Initialized="Window_Initialized"
-        PreviewKeyDown="Window_PreviewKeyDown">
+        PreviewKeyDown="Window_PreviewKeyDown" ResizeMode="NoResize">
     <Grid>
         <Label Content="Vyberte zakázku:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" />
         <DataGrid x:Name="dgOrders" HorizontalAlignment="Left" ItemsSource="{Binding}" Height="261" Margin="10,36,0,0"

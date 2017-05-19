@@ -1,10 +1,19 @@
 ﻿<Window x:Class="INPDS_App.View.PlannerView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="PlannerView" Height="328" Width="427">
+        Title="PlannerView" Height="582" Width="533" ResizeMode="NoResize" Initialized="Window_Initialized">
     <Grid>
-        <Button x:Name="btnLogout" Content="Odhlásit" HorizontalAlignment="Left" Margin="345,10,-113,0"
-    		VerticalAlignment="Top" Width="60" Click="btnLogout_Click" />
+        <Button x:Name="btnLogout" Content="Odhlásit" HorizontalAlignment="Left" Margin="451,10,0,0"
+    		VerticalAlignment="Top" Width="58" Click="btnLogout_Click" RenderTransformOrigin="2.75,0.364" />
+        <Label Content="Vyberte zakázku:" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" />
+        <DataGrid x:Name="dgOrders" HorizontalAlignment="Left" ItemsSource="{Binding}" Height="261" Margin="10,36,0,0"
+                  VerticalAlignment="Top" Width="499" CanUserAddRows="False" SelectionChanged="dgOrders_SelectionChanged" SelectionMode="Single" IsReadOnly="True" />
+        <Button x:Name="btnNewTrip" Content="Přidat novou jízdu" HorizontalAlignment="Left" Margin="10,302,0,0" VerticalAlignment="Top" Width="121" Click="btnNewTrip_Click" IsEnabled="False"/>
+        <ComboBox x:Name="comboTrips" HorizontalAlignment="Left" VerticalAlignment="Top" Width="116" RenderTransformOrigin="1.308,11.136" Margin="256,302,0,0" SelectionChanged="comboTrips_SelectionChanged"/>
+        <Button x:Name="btnAddToExistingTrip" Content="Přidat k existující jízdě" HorizontalAlignment="Left" Margin="377,302,0,0" VerticalAlignment="Top" Width="132" IsEnabled="False" Click="btnAddToExistingTrip_Click"/>
+        <Label Content="Naplánované jízdy:" HorizontalAlignment="Left" Margin="10,327,0,0" VerticalAlignment="Top" />
+        <DataGrid x:Name="dgTrips" HorizontalAlignment="Left" ItemsSource="{Binding}" Height="188" Margin="10,356,0,0"
+        	VerticalAlignment="Top" Width="499" CanUserAddRows="False" SelectionChanged="dgOrders_SelectionChanged" SelectionMode="Single" IsReadOnly="True" AutoGeneratingColumn="dgTrips_AutoGeneratingColumn" />
 
     </Grid>
 </Window>
