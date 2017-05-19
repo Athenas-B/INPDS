@@ -32,7 +32,7 @@ namespace INPDS_Core.Model
 
         public override string ToString()
         {
-            return "Primary: " + PrimaryOrder.ToString() + "\nSecondary: " + SecondaryOrder.ToString();
+            return string.Format("PrimaryOrder: {0}, SecondaryOrder: {1}", PrimaryOrder, SecondaryOrder);
         }
     }
 }

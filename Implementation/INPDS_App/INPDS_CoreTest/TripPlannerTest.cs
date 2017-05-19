@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using INPDS_Core.Controller;
 using INPDS_Core.DataAccess;
+using INPDS_Core.Interfaces;
 using INPDS_Core.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -85,7 +86,7 @@ namespace INPDS_CoreTest
         {
             var validationResult = _planner.PlanTrip(_primaryOrder);
             Assert.IsTrue(validationResult.IsValid);
-            
+
             var trip = GetTripByOrder(_primaryOrder);
             Assert.IsNotNull(trip);
 
@@ -99,7 +100,25 @@ namespace INPDS_CoreTest
             Assert.IsFalse(validationResult.IsValid);
         }
 
-        #region Private method
+        [TestMethod]
+        public void TestNotifyObserver()
+        {
+            var testObserver = new TestObserver();
+            _planner.AddObserver(testObserver);
+            Assert.IsNull(testObserver.CurrentData);
+            var validationResult = _planner.PlanTrip(_primaryOrder);
+            Assert.IsTrue(validationResult.IsValid);
+            Assert.IsNotNull(testObserver.CurrentData);
+            var expected = GetTripByOrder(_primaryOrder);
+            Assert.AreEqual(expected.Id, testObserver.CurrentData.Id);
+
+            testObserver.CurrentData = null;
+            _planner.RemoveObserver(testObserver);
+            validationResult = _planner.PlanTrip(_secondaryOrder);
+            Assert.IsTrue(validationResult.IsValid);
+            Assert.IsNull(testObserver.CurrentData);
+        }
+
 
         [TestInitialize]
         public void Initialize()
@@ -135,6 +154,14 @@ namespace INPDS_CoreTest
             }
         }
 
-        #endregion
+        private class TestObserver : IObserver<Trip>
+        {
+            public Trip CurrentData { get; set; }
+
+            public void Update(Trip data)
+            {
+                CurrentData = data;
+            }
+        }
     }
 }
