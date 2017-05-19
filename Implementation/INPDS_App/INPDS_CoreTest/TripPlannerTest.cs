@@ -139,6 +139,7 @@ namespace INPDS_CoreTest
                         t.PrimaryOrder.Id == _primaryOrder.Id || t.PrimaryOrder.Id == _secondaryOrder.Id ||
                         t.SecondaryOrder.Id == _primaryOrder.Id || t.SecondaryOrder.Id == _secondaryOrder.Id).ToList();
                 context.Trips.RemoveRange(createdTrips);
+                context.TrySaveChanges();
             }
             TestUtils.DeleteTestOrder(_primaryOrder);
             TestUtils.DeleteTestOrder(_secondaryOrder);
