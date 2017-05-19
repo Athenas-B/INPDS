@@ -1,13 +1,13 @@
-﻿using INPDS_Core.Interfaces;
+﻿using System;
 using INPDS_Core.Model;
 
 namespace INPDS_Core.Observers
 {
-    public class EnviromentDepartmentNotifier : IObserver<Trip>
+    public class EnviromentDepartmentNotifier : Interfaces.IObserver<Trip>
     {
         public void Update(Trip trip)
         {
-            //TODO: Notify Enviroment Department
+            Console.WriteLine("Zasílání jízdy do statistického systému Ministerstva životního prostredí pro sledování emisí. Jízda: '{0}'", trip);
         }
     }
 }

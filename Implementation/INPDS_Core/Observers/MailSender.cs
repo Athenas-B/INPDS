@@ -1,13 +1,13 @@
-﻿using INPDS_Core.Interfaces;
+﻿using System;
 using INPDS_Core.Model;
 
 namespace INPDS_Core.Observers
 {
-    public class MailSender : IObserver<Trip>
+    public class MailSender : Interfaces.IObserver<Trip>
     {
         public void Update(Trip trip)
         {
-            //TODO: Send Mail
+            Console.WriteLine("Zasílání emailu zákazníkovi s informací o naplánované jízdě. Jízda: '{0}'", trip);
         }
     }
 }

@@ -1,13 +1,13 @@
-﻿using INPDS_Core.Interfaces;
+﻿using System;
 using INPDS_Core.Model;
 
 namespace INPDS_Core.Observers
 {
-    public class CarNavigationNotifier : IObserver<Trip>
+    public class CarNavigationNotifier : Interfaces.IObserver<Trip>
     {
         public void Update(Trip trip)
         {
-            //TODO: Send Navigation Notification
+            Console.WriteLine("Zasílání jízdy do navigačního systému nákladního auta. Jízda: '{0}'", trip);
         }
     }
 }
